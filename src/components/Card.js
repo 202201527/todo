@@ -39,12 +39,25 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
         deleteTask(index)
     }
 
+    const handleCheckboxChange = () => {
+        const updatedTask = { ...taskObj, isCompleted: !taskObj.isCompleted };
+        updateTask(updatedTask);
+    };
+
     return (
-        <div class = "card-wrapper mr-5">
+        <div class = "card-wrapper mr-5" style={{ margin: '10px', marginRight: '30px' }}>
             <div class = "card-top" style={{"background-color": colors[index%5].primaryColor}}></div>
             <div class = "task-holder">
-                <span class = "card-header" style={{"background-color": colors[index%5].secondaryColor, "border-radius": "10px"}}>{taskObj.Name}</span>
-                <p className = "mt-3">{taskObj.Description}</p>
+                <div class = "card-header" style={{"background-color": colors[index%5].secondaryColor, "border-radius": "10px"}}>
+                    <input 
+                        type="checkbox" 
+                        checked={taskObj.isCompleted} 
+                        onChange={handleCheckboxChange} 
+                        style={{ marginRight: '10px' }}
+                    />
+                    <span>{taskObj.Name}</span>
+                    </div>
+                    <p className={`mt-3 ${taskObj.isCompleted ? 'completed-task' : ''}`}>{taskObj.Description}</p>
 
                 <div style={{"position": "absolute", "top":"160px", "left":"160px"}}>
                     <button style={{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {() => setModal(true)}>close</button>
